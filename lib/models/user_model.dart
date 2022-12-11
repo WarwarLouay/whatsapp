@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../exceptions/https_exception.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserModel with ChangeNotifier {
   String? id;
@@ -58,23 +59,26 @@ class UserModel with ChangeNotifier {
       if (responseData['message'] == 'Invalid phone number') {
         throw HttpException('Invalid phone number');
       }
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString("phone", responseData['phone']);
       print(responseData);
     } catch (error) {
       throw error;
     }
     notifyListeners();
   }
-}
 
-Future<List> fetchUsers() async {
-  final response = await http.get(
-      Uri.parse('http://192.168.0.107:5000/api/get/users'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8'
-      });
+  Future<List<UserModel>> fetchUsers() async {
 
-  Map<String, dynamic> map = json.decode(response.body);
-  List<dynamic> data = map["users"];
-  print(data);
-  return data;
+    final response = await http.get(
+        Uri.parse('http://192.168.0.107:5000/api/get/users'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        });
+
+    var responseJson = jsonDecode(response.body);
+    print(responseJson);
+    notifyListeners();
+    return (responseJson as List).map((p) => UserModel.fromJson(p)).toList();
+  }
 }

@@ -17,13 +17,6 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  late Future futureUsers;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchUsers();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +91,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 if (pin == '000000') {
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (builder) => LoginScreen()),
+                      MaterialPageRoute(builder: (builder) => HomeScreen()),
                       (route) => false);
                 } else {
                   showDialog(

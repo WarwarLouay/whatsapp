@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp/models/user_model.dart';
 import 'package:whatsapp/pages/camera_page.dart';
+import 'package:whatsapp/pages/chat_page2.dart';
 
 import '../models/chat_model.dart';
 import '../pages/chat_page.dart';
@@ -89,10 +90,7 @@ class _HomeScreenState extends State<HomeScreen>
         controller: _controller,
         children: [
           CameraPage(),
-          ChatPage(
-            chatModels: widget.chatModels,
-            souceChat: widget.souceChat,
-          ),
+          ChatPage2(),
           Text('STATUS'),
           Text('CALLS'),
         ],
