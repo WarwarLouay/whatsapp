@@ -91,6 +91,10 @@ class _HomeScreenState extends State<HomeScreen>
         children: [
           CameraPage(),
           ChatPage2(),
+          // ChatPage(
+          //   chatModels: widget.chatModels,
+          //   souceChat: widget.souceChat,
+          // ),
           Text('STATUS'),
           Text('CALLS'),
         ],
