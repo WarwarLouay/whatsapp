@@ -3,8 +3,10 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:whatsapp/models/message_model.dart';
 import 'package:whatsapp/models/user_model.dart';
 import 'package:whatsapp/screens/camera_screen.dart';
+import 'package:whatsapp/screens/individual_screen2.dart';
 import 'package:whatsapp/screens/landing_screen.dart';
 import 'package:whatsapp/screens/login_screen.dart';
 
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => UserModel(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => MessageModel(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -36,7 +41,11 @@ class MyApp extends StatelessWidget {
             accentColor: Color(0xFF128C7E),
           ),
           // ignore: prefer_const_constructors
-          home: LandingScreen()),
+          home: LandingScreen(),
+          routes: {
+            IndividualScreen2.routeName: (context) => IndividualScreen2(),
+          }
+        ),
     );
   }
 }

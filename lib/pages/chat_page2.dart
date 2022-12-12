@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:whatsapp/screens/individual_screen2.dart';
 
 import '../models/user_model.dart';
 import '../screens/select_contact_screen.dart';
@@ -50,58 +51,54 @@ class _ChatPage2State extends State<ChatPage2> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => IndividualScreen(
-                  //               chatModel: chatModel,
-                  //               souceChat: souceChat,
-                  //             )));
+                  Navigator.of(context).pushNamed(IndividualScreen2.routeName, arguments: {'user': snapshot.data![index].phone});
                 },
-                child: snapshot.data![index].phone != currentUser ? Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        child: SvgPicture.asset(
-                          'assets/person.svg',
-                          color: Colors.white,
-                          height: 37,
-                          width: 37,
-                        ),
-                        backgroundColor: Colors.blueGrey,
-                      ),
-                      title: Text(
-                        snapshot.data![index].phone,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Row(
+                child: snapshot.data![index].phone != currentUser
+                    ? Column(
                         children: [
-                          Icon(Icons.done_all),
-                          SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            'Hi',
-                            style: TextStyle(
-                              fontSize: 13,
+                          ListTile(
+                            leading: CircleAvatar(
+                              radius: 30,
+                              child: SvgPicture.asset(
+                                'assets/person.svg',
+                                color: Colors.white,
+                                height: 37,
+                                width: 37,
+                              ),
+                              backgroundColor: Colors.blueGrey,
                             ),
-                          )
+                            title: Text(
+                              snapshot.data![index].phone,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Icon(Icons.done_all),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  'Hi',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                  ),
+                                )
+                              ],
+                            ),
+                            trailing: Text('12:30'),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20, left: 80),
+                            child: Divider(
+                              thickness: 1,
+                            ),
+                          ),
                         ],
-                      ),
-                      trailing: Text('12:30'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 20, left: 80),
-                      child: Divider(
-                        thickness: 1,
-                      ),
-                    ),
-                  ],
-                ) : Container(),
+                      )
+                    : Container(),
               ),
             );
           } else if (snapshot.hasError) {

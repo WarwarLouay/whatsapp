@@ -37,18 +37,21 @@ class _CameraScreenState extends State<CameraScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          FutureBuilder(
-            future: cameraValue,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return CameraPreview(_cameraController);
-              } else {
-                // ignore: prefer_const_constructors
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: FutureBuilder(
+              future: cameraValue,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return CameraPreview(_cameraController);
+                } else {
+                  // ignore: prefer_const_constructors
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ),
           Positioned(
             bottom: 0.0,
